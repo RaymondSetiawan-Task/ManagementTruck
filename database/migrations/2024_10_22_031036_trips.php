@@ -3,6 +3,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,9 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trip', function (Blueprint $table) {
-            $table->integer('trip_id')->primary();
-            $table->integer('truck_id');
-            $table->integer('driver_id');
+            $table->increments('trip_id', 1)->primary();
+            $table->unsignedInteger('truck_id');
+            $table->unsignedInteger('driver_id');
 
             $table->string('start_location', 255);
             $table->string('end_location', 255);

@@ -14,7 +14,7 @@ class Truck extends Model
 
     protected $fillable = [
       'truck_id',
-      'lincense_plate',
+      'license_plate',
       'model',
       'capacity',
       'exp_kir',
