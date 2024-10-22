@@ -50,6 +50,7 @@ class TripsController extends Controller
 
         return response()->json($show_trip);
     }
+
     public function showTrip()
     {
         $showdriver = DB::table('drivers')->get();
@@ -72,6 +73,7 @@ class TripsController extends Controller
             $dtDriver[$i]['end_location'] = $u->end_location;
             $dtDriver[$i]['distance'] = $u->distance;
             $dtDriver[$i]['trip_date'] = $u->trip_date;
+            $dtDriver[$i]['status'] = $u->status;
         }
         //dd($show_trip);
 
@@ -80,8 +82,6 @@ class TripsController extends Controller
 
     public function showDriver(Request $request)
     {
-
-        //dd($request);
         $name = $request->selectDriver;
 
         $showdriver = DB::table('drivers')->get();
@@ -105,6 +105,8 @@ class TripsController extends Controller
             $dtDriver[$i]['end_location'] = $u->end_location;
             $dtDriver[$i]['distance'] = $u->distance;
             $dtDriver[$i]['trip_date'] = $u->trip_date;
+            $dtDriver[$i]['status'] = $u->status;
+
         }
 
         //dd($show_trip);
@@ -151,6 +153,77 @@ class TripsController extends Controller
         return redirect()->back();
     }
 
+    public function delete_trip(Request $request)
+    {
+        try {
+            $delete_tripInfo = $request->id_idHidden;
+            $query = Trip::where('trip_id', $delete_tripInfo)->delete();
+
+            Toast('Data has been deleted', 'success');
+            return redirect()->back();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            //dd($ex->getMessage()); 
+            $errorCode = $ex->errorInfo[1];
+            $errorMessage = $ex->errorInfo[2];
+
+            toast($errorMessage, 'error');
+            return redirect()->back();
+        }
+    }
+
+    public function edittrip($id)
+    {
+        $editTrip = DB::table('trip')
+        ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
+        ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
+        ->where('trip_id', $id)
+        ->first();
+
+        return response()->json([
+            'Trip' => $editTrip,
+        ]);
+    }
+
+    public function updatetrip(Request $request)
+    {
+
+        //dd($request);
+        $trip_id = $request->input('trip_id');
+        $truck_id = $request->input('truck_id');
+        $driver_id = $request->input('driver_id');
+        $start_location =$request->input('start_location');
+        $end_location =$request->input('end_location');
+        $distance =$request->input('distance');
+        $trip_date =$request->input('trip_date');
+
+        try {
+            $query = DB::table('trip')->where('trip_id', $trip_id)->update([
+                'truck_id' => $truck_id,
+                'driver_id' => $driver_id,
+                'start_location' => $start_location,
+                'end_location' => $end_location,
+                'distance' => $distance,
+                'trip_date' => $trip_date,
+                'updated_at' => Carbon::now('Asia/Jakarta')
+            ]);
+            
+            Toast('Data has been updated', 'success');
+            return redirect('/trips');
+
+        } catch (\Illuminate\Database\QueryException $ex) {
+            //dd($ex->getMessage()); 
+            $errorCode = $ex->errorInfo[1];
+            $errorMessage = $ex->errorInfo[2];
+
+            
+            toast($errorMessage, 'error');
+
+            return redirect()->back();
+        }
+    }
+
+
+    
     public function countTrip()
     {
         $drivers = Driver::select('drivers.driver_id', 'drivers.name', DB::raw('COUNT(trip.trip_id) AS total_trips'))
@@ -162,4 +235,6 @@ class TripsController extends Controller
 
         return view('counttrip', compact('drivers'));
     }
+
+    
 }

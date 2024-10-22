@@ -4,7 +4,7 @@
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="/home" class="sidebar-link">
+            <a href="/" class="sidebar-link">
                 <i class="lni lni-home icon-large"></i>
                 <span>Home</span>
             </a>
@@ -17,7 +17,7 @@
         </li>
         <li class="sidebar-item">
             <a href="/counttrip" class="sidebar-link">
-                <i class="lni lni-car icon-large"></i>
+                <i class="lni lni-database icon-large"></i>
                 <span>Count Trip</span>
             </a>
         </li>

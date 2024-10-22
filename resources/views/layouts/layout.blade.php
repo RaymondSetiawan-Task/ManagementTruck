@@ -13,7 +13,7 @@
                 <ul class="nav" style='justify-content: flex-end'>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Welcome
-                             to Truck Management </a>
+                            to Truck Management </a>
                     </li>
                 </ul>
             </div>
@@ -21,6 +21,8 @@
             @yield('content')
         </div>
     </div>
-
-    @include('layouts.footer')
 </body>
+@include('layouts.footer')
+@yield('scripts')
+
+</html>

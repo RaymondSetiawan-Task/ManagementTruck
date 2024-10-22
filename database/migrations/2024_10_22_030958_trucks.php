@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('model', 100);
             $table->decimal('capacity', 7,2);
             $table->date('exp_kir');
-            $table->string('status');
+            $table->enum('status', ['Available', 'On Trip'])->default('Available');
             $table->timestamps();
 
             $table->index(['truck_id']);
@@ -32,8 +32,8 @@ return new class extends Migration
 
         DB::table('trucks')->insert([
             ['truck_id' => 1, 'license_plate' => 'B 6670 CD', 'model' => 'Isuzu', 'capacity'=> 60, 'exp_kir' => '2024-11-24', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
-            ['truck_id' => 2, 'license_plate' => 'B 6870 AD', 'model' => 'Isuzu', 'capacity'=> 60, 'exp_kir' => '2024-10-27', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
-            ['truck_id' => 3, 'license_plate' => 'B 6980 BD', 'model' => 'Isuzu', 'capacity'=> 60, 'exp_kir' => '2025-01-29', 'status' => 'On Trip', 'created_at' => Carbon::now('Asia/Jakarta')]
+            ['truck_id' => 2, 'license_plate' => 'B 6870 AD', 'model' => 'Honda', 'capacity'=> 60, 'exp_kir' => '2024-10-27', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['truck_id' => 3, 'license_plate' => 'B 6980 BD', 'model' => 'Suzuki', 'capacity'=> 60, 'exp_kir' => '2025-01-29', 'status' => 'On Trip', 'created_at' => Carbon::now('Asia/Jakarta')]
         ]);
     }
 
