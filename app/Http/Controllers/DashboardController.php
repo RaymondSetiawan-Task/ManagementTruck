@@ -19,8 +19,8 @@ class DashboardController extends Controller
 
        $trucksExpiringKIR = Truck::where('exp_kir', '<=', Carbon::now()->addDays(30))->count();
 
-       $trucksExpiringSIM = Driver::where('exp_sim', '<=', Carbon::now()->addDays(30))->count();
+       $driversExpiringSIM = Driver::where('exp_sim', '<=', Carbon::now()->addDays(30))->count();
 
-       return view('home', compact('totalTripsToday', 'trucksExpiringKIR', 'trucksExpiringSIM'));
+       return view('home', compact('totalTripsToday', 'trucksExpiringKIR', 'driversExpiringSIM'));
     }
 }

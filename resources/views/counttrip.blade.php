@@ -3,6 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="mb-3">Count Trip Information</h2>
+    <p style="color: red;">Note: Drivers with over 5 trips last month</p>
     <div class="container py-3 mt-3">
 
         <table class="table table-striped">

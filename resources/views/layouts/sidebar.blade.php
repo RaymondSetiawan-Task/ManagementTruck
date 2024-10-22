@@ -6,7 +6,7 @@
         <li class="sidebar-item">
             <a href="/" class="sidebar-link">
                 <i class="lni lni-home icon-large"></i>
-                <span>Home</span>
+                <span>Dashboard</span>
             </a>
         </li>
         <li class="sidebar-item">

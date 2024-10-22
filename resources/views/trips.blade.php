@@ -109,7 +109,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleTruckID" class="form-label">Truck License Plate</label>
-                        <select name="truck_id" class="form-select" id="truck_id" required>
+                        <select name="truck_id" class="form-select searchaddPlate" id="truck_id" required>
                             <option value="">Select Truck License Plate</option>
                             @foreach ($showtruck as $i => $item)
                             <option value="{{ $item->truck_id }}">{{ $item->license_plate }}</option>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleDriverName" class="form-label">Select Driver Name</label>
-                        <select name="driver_id" class="form-select" id="driver_id" required>
+                        <select name="driver_id" class="form-select searchaddDriver" id="driver_id" required>
                             <option value="">Select Driver Name</option>
                             @foreach ($showdriver as $i => $item)
                             <option value="{{ $item->driver_id }}">{{ $item->name }}</option>
@@ -202,7 +202,7 @@
                                 <tr class="form-group">
                                     <td style="border-style:none;"><label>Truck License Plate : </label></td>
                                     <td style="border-style:none;">
-                                        <select name="truck_id" class="form-select" id="truck_id" required>
+                                        <select name="truck_id" class="form-select searcheditPlate" id="truck_id" required>
                                             <option value="">Select Truck License Plate</option>
                                             @foreach ($showtruck as $i => $item)
                                             <option value="{{ $item->truck_id }}">{{ $item->license_plate }}</option>
@@ -212,7 +212,7 @@
                                 </tr>
                                 <tr>
                                     <td style="border-style:none;"><label>Driver Name : </label></td>
-                                    <td style="border-style:none;"><select name="driver_id" class="form-select" id="driver_id" required>
+                                    <td style="border-style:none;"><select name="driver_id" class="form-select searcheditDriver" id="driver_id" required>
                                             <option value="">Select Driver Name</option>
                                             @foreach ($showdriver as $i => $item)
                                             <option value="{{ $item->driver_id }}">{{ $item->name }}</option>
@@ -289,6 +289,26 @@
         });
 
         var select_box_element = document.querySelector('.searchDriver');
+        dselect(select_box_element, {
+            search: true
+        });
+
+        var select_box_element = document.querySelector('.searchaddDriver');
+        dselect(select_box_element, {
+            search: true
+        });
+        
+        var select_box_element = document.querySelector('.searchaddPlate');
+        dselect(select_box_element, {
+            search: true
+        });
+
+        var select_box_element = document.querySelector('.searcheditPlate');
+        dselect(select_box_element, {
+            search: true
+        });
+
+        var select_box_element = document.querySelector('.searcheditDriver');
         dselect(select_box_element, {
             search: true
         });

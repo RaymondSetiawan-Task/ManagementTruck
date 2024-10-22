@@ -4,7 +4,8 @@
     <script src="https://code.jquery.com/jquery-ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="/js/layout.js"></script>
-    
+    <script src="/js/dselect.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dselect/dist/dselect.css">
     <script src="https://cdn.jsdelivr.net/npm/dselect/dist/dselect.js"></script>
 

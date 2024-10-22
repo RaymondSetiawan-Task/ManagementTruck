@@ -46,8 +46,6 @@ class TripsController extends Controller
                     'trip_date' => $trip->trip_date,
                 ];
             });
-
-
         return response()->json($show_trip);
     }
 
@@ -83,35 +81,39 @@ class TripsController extends Controller
     public function showDriver(Request $request)
     {
         $name = $request->selectDriver;
+        if ($name != null) {
 
-        $showdriver = DB::table('drivers')->get();
-        $showtruck = DB::table('trucks')->get();
+            $showdriver = DB::table('drivers')->get();
+            $showtruck = DB::table('trucks')->get();
 
-        $show_trip = DB::table('trip')
-            ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
-            ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
-            ->where('drivers.name', $name)
-            ->orderBy('trip_id', 'ASC')
-            ->get();
+            $show_trip = DB::table('trip')
+                ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
+                ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
+                ->where('drivers.name', $name)
+                ->orderBy('trip_id', 'ASC')
+                ->get();
 
-        $dtDriver = [];
-        foreach ($show_trip as $i => $u) {
-            $dtDriver[$i]['trip_id'] = $u->trip_id;
-            $dtDriver[$i]['license_plate'] = $u->license_plate;
-            $dtDriver[$i]['model'] = $u->model;
-            $dtDriver[$i]['capacity'] = $u->capacity;
-            $dtDriver[$i]['name'] = $u->name;
-            $dtDriver[$i]['start_location'] = $u->start_location;
-            $dtDriver[$i]['end_location'] = $u->end_location;
-            $dtDriver[$i]['distance'] = $u->distance;
-            $dtDriver[$i]['trip_date'] = $u->trip_date;
-            $dtDriver[$i]['status'] = $u->status;
+            $dtDriver = [];
+            foreach ($show_trip as $i => $u) {
+                $dtDriver[$i]['trip_id'] = $u->trip_id;
+                $dtDriver[$i]['license_plate'] = $u->license_plate;
+                $dtDriver[$i]['model'] = $u->model;
+                $dtDriver[$i]['capacity'] = $u->capacity;
+                $dtDriver[$i]['name'] = $u->name;
+                $dtDriver[$i]['start_location'] = $u->start_location;
+                $dtDriver[$i]['end_location'] = $u->end_location;
+                $dtDriver[$i]['distance'] = $u->distance;
+                $dtDriver[$i]['trip_date'] = $u->trip_date;
+                $dtDriver[$i]['status'] = $u->status;
+            }
 
+            //dd($show_trip);
+
+            return view('trips', compact('dtDriver', 'showdriver', 'showtruck'));
+        } else {
+            Toast('Please input Driver Name', 'info');
+            return redirect('/trips');
         }
-
-        //dd($show_trip);
-
-        return view('trips', compact('dtDriver', 'showdriver', 'showtruck'));
     }
 
     public function storeTrip(Request $request)
@@ -174,10 +176,10 @@ class TripsController extends Controller
     public function edittrip($id)
     {
         $editTrip = DB::table('trip')
-        ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
-        ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
-        ->where('trip_id', $id)
-        ->first();
+            ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
+            ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
+            ->where('trip_id', $id)
+            ->first();
 
         return response()->json([
             'Trip' => $editTrip,
@@ -191,10 +193,10 @@ class TripsController extends Controller
         $trip_id = $request->input('trip_id');
         $truck_id = $request->input('truck_id');
         $driver_id = $request->input('driver_id');
-        $start_location =$request->input('start_location');
-        $end_location =$request->input('end_location');
-        $distance =$request->input('distance');
-        $trip_date =$request->input('trip_date');
+        $start_location = $request->input('start_location');
+        $end_location = $request->input('end_location');
+        $distance = $request->input('distance');
+        $trip_date = $request->input('trip_date');
 
         try {
             $query = DB::table('trip')->where('trip_id', $trip_id)->update([
@@ -206,16 +208,15 @@ class TripsController extends Controller
                 'trip_date' => $trip_date,
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
-            
+
             Toast('Data has been updated', 'success');
             return redirect('/trips');
-
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
             $errorMessage = $ex->errorInfo[2];
 
-            
+
             toast($errorMessage, 'error');
 
             return redirect()->back();
@@ -223,7 +224,7 @@ class TripsController extends Controller
     }
 
 
-    
+
     public function countTrip()
     {
         $drivers = Driver::select('drivers.driver_id', 'drivers.name', DB::raw('COUNT(trip.trip_id) AS total_trips'))
@@ -235,6 +236,4 @@ class TripsController extends Controller
 
         return view('counttrip', compact('drivers'));
     }
-
-    
 }

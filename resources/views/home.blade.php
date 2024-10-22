@@ -37,11 +37,11 @@
             <div class="card text-dark bg-light border-danger shadow-sm">
                 <div class="card-header d-flex align-items-center">
                     <i class="lni lni-warning fs-2 me-2 text-danger"></i>
-                    <span>Trucks Expiring SIM</span>
+                    <span>Drivers Expiring SIM</span>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fs-1">{{ $trucksExpiringSIM }}</h5>
-                    <p class="card-text">Trucks nearing SIM expiration.</p>
+                    <h5 class="card-title fs-1">{{ $driversExpiringSIM }}</h5>
+                    <p class="card-text">Drivers nearing SIM expiration.</p>
                 </div>
             </div>
         </div>
