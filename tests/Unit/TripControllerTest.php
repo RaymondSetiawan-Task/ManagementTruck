@@ -17,11 +17,9 @@ class TripControllerTest extends TestCase
 
     public function testCannotCreateTripWithTruckUnderMaintenance()
     {
-        // Membuat driver dan truck dalam status maintenance
         $driver = Driver::factory()->create();
         $truck = Truck::factory()->create(['status' => 'Maintenance']);
 
-        // Mencoba membuat trip dengan truck yang sedang dalam maintenance
         $this->expectException(\Exception::class);
         Trip::create([
             'trip_id' => 3,
@@ -36,11 +34,11 @@ class TripControllerTest extends TestCase
 
     public function testCannotCreateTripWithDriverOnAnotherTrip()
     {
-        // Membuat driver dan truck menggunakan factory
-        $driver = Driver::factory()->create();
-        $truck = Truck::factory()->create(['status' => 'Available']); // Truck dalam status 'Available'
 
-        // Membuat trip pertama untuk driver
+        $driver = Driver::factory()->create();
+        $truck = Truck::factory()->create(['status' => 'Available']);
+
+
         $trip = Trip::create([
             'truck_id' => $truck->truck_id,
             'driver_id' => $driver->driver_id,
@@ -50,13 +48,13 @@ class TripControllerTest extends TestCase
             'trip_date' => now(),
         ]);
 
-        // Mencoba membuat trip kedua dengan driver yang sedang dalam trip
+
         $this->expectException(\Illuminate\Validation\ValidationException::class);
         $this->expectExceptionMessage('Driver is currently on another trip.');
 
-        // Coba membuat trip kedua
+
         Trip::create([
-            'truck_id' => $trip->truck_id, 
+            'truck_id' => $truck->truck_id,
             'driver_id' => $driver->driver_id,
             'start_location' => 'Location C',
             'end_location' => 'Location D',
