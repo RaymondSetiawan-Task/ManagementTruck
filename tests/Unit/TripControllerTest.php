@@ -34,10 +34,8 @@ class TripControllerTest extends TestCase
 
     public function testCannotCreateTripWithDriverOnAnotherTrip()
     {
-
         $driver = Driver::factory()->create();
         $truck = Truck::factory()->create(['status' => 'Available']);
-
 
         $trip = Trip::create([
             'truck_id' => $truck->truck_id,
@@ -48,10 +46,8 @@ class TripControllerTest extends TestCase
             'trip_date' => now(),
         ]);
 
-
         $this->expectException(\Illuminate\Validation\ValidationException::class);
         $this->expectExceptionMessage('Driver is currently on another trip.');
-
 
         Trip::create([
             'truck_id' => $truck->truck_id,
