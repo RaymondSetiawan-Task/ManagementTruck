@@ -29,9 +29,11 @@ return new class extends Migration
         });
 
         DB::table('drivers')->insert([
-            ['driver_id' => 1, 'name' => 'John Doe', 'license_number' => 'B1234XYZ ', 'exp_sim'=> '2024-12-25', 'experience_years' => '5','created_at' => Carbon::now('Asia/Jakarta')],
-            ['driver_id' => 2, 'name' => 'Thomas', 'license_number' => 'K6789ABC', 'exp_sim'=> '2025-01-14', 'experience_years' => '3', 'created_at' => Carbon::now('Asia/Jakarta')],
-            ['driver_id' => 3, 'name' => 'Alpha', 'license_number' => 'K6789BDS', 'exp_sim'=> '2024-10-31', 'experience_years' => '4', 'created_at' => Carbon::now('Asia/Jakarta')]
+            ['name' => 'John Doe', 'license_number' => 'B1234XYZ', 'exp_sim'=> '2024-12-25', 'experience_years' => 5, 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['name' => 'Thomas', 'license_number' => 'K6789ABC', 'exp_sim'=> '2025-01-14', 'experience_years' => 3, 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['name' => 'Alpha', 'license_number' => 'K6789BDS', 'exp_sim'=> '2024-10-31', 'experience_years' => 4, 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['name' => 'Jane Smith', 'license_number' => 'L1234XYZ', 'exp_sim'=> '2024-11-20', 'experience_years' => 6, 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['name' => 'Bob Brown', 'license_number' => 'M5678ABC', 'exp_sim'=> '2024-10-15', 'experience_years' => 2, 'created_at' => Carbon::now('Asia/Jakarta')]
         ]);
     }
 

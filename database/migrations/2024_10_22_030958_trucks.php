@@ -31,9 +31,11 @@ return new class extends Migration
         });
 
         DB::table('trucks')->insert([
-            ['truck_id' => 1, 'license_plate' => 'B 6670 CD', 'model' => 'Isuzu', 'capacity'=> 60, 'exp_kir' => '2024-11-24', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
-            ['truck_id' => 2, 'license_plate' => 'B 6870 AD', 'model' => 'Honda', 'capacity'=> 60, 'exp_kir' => '2024-10-27', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
-            ['truck_id' => 3, 'license_plate' => 'B 6980 BD', 'model' => 'Suzuki', 'capacity'=> 60, 'exp_kir' => '2025-01-29', 'status' => 'On Trip', 'created_at' => Carbon::now('Asia/Jakarta')]
+            ['license_plate' => 'B 6670 CD', 'model' => 'Isuzu', 'capacity'=> 60, 'exp_kir' => '2024-11-24', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['license_plate' => 'B 6870 AD', 'model' => 'Honda', 'capacity'=> 60, 'exp_kir' => '2024-10-27', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['license_plate' => 'B 6980 BD', 'model' => 'Suzuki', 'capacity'=> 60, 'exp_kir' => '2025-01-29', 'status' => 'On Trip', 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['license_plate' => 'B 7070 ED', 'model' => 'Mitsubishi', 'capacity'=> 75, 'exp_kir' => '2024-10-27', 'status' => 'Available', 'created_at' => Carbon::now('Asia/Jakarta')],
+            ['license_plate' => 'B 7170 FD', 'model' => 'Toyota', 'capacity'=> 80, 'exp_kir' => '2024-10-10', 'status' => 'On Trip', 'created_at' => Carbon::now('Asia/Jakarta')]
         ]);
     }
 

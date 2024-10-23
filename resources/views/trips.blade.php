@@ -62,6 +62,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $show_trip->onEachSide(5)->links('pagination::bootstrap-4', ['class' => 'btn btn-sm']) }}
 </div>
 
 

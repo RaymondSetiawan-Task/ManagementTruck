@@ -58,7 +58,7 @@ class TripsController extends Controller
             ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
             ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
             ->orderBy('trip_id', 'ASC')
-            ->get();
+            ->paginate(10);
 
         $dtDriver = [];
         foreach ($show_trip as $i => $u) {
@@ -75,7 +75,7 @@ class TripsController extends Controller
         }
         //dd($show_trip);
 
-        return view('trips', compact('dtDriver', 'showdriver', 'showtruck'));
+        return view('trips', compact('dtDriver', 'showdriver', 'showtruck', 'show_trip'));
     }
 
     public function showDriver(Request $request)
@@ -91,7 +91,7 @@ class TripsController extends Controller
                 ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
                 ->where('drivers.name', $name)
                 ->orderBy('trip_id', 'ASC')
-                ->get();
+                ->paginate(10);
 
             $dtDriver = [];
             foreach ($show_trip as $i => $u) {
@@ -109,7 +109,7 @@ class TripsController extends Controller
 
             //dd($show_trip);
 
-            return view('trips', compact('dtDriver', 'showdriver', 'showtruck'));
+            return view('trips', compact('dtDriver', 'showdriver', 'showtruck', 'show_trip'));
         } else {
             Toast('Please input Driver Name', 'info');
             return redirect('/trips');
@@ -128,31 +128,37 @@ class TripsController extends Controller
             'trip_date' => 'required',
         ]);
 
-        $truck_id = $request->truck_id;
-        $driver_id = $request->driver_id;
-        $start_location = $request->start_location;
-        $end_location = $request->end_location;
-        $distance = $request->distance;
-        $trip_date = $request->trip_date;
+        try {
+            $truck_id = $request->truck_id;
+            $driver_id = $request->driver_id;
+            $start_location = $request->start_location;
+            $end_location = $request->end_location;
+            $distance = $request->distance;
+            $trip_date = $request->trip_date;
 
 
-        // $showdriver = DB::table('drivers')->get();
-        // $showtruck = DB::table('trucks')->get();
+            // $showdriver = DB::table('drivers')->get();
+            // $showtruck = DB::table('trucks')->get();
 
-        $insert_Trip = DB::table('trip')->insert([
-            'truck_id' => $truck_id,
-            'driver_id' => $driver_id,
-            'start_location' => $start_location,
-            'end_location' => $end_location,
-            'distance' => $distance,
-            'trip_date' => $trip_date,
-            'created_at' => Carbon::now('Asia/Jakarta'),
-        ]);
-        toast('Trip Information Added Successfully', 'success');
+            $insert_Trip = DB::table('trip')->insert([
+                'truck_id' => $truck_id,
+                'driver_id' => $driver_id,
+                'start_location' => $start_location,
+                'end_location' => $end_location,
+                'distance' => $distance,
+                'trip_date' => $trip_date,
+                'created_at' => Carbon::now('Asia/Jakarta'),
+            ]);
+            toast('Trip Information Added Successfully', 'success');
+            return redirect()->back();
 
-        //dd($show_trip);
-
-        return redirect()->back();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            //dd($ex->getMessage()); 
+            $errorCode = $ex->errorInfo[1];
+            $errorMessage = $ex->errorInfo[2];
+            toast($errorMessage, 'error');
+            return redirect()->back();
+        }
     }
 
     public function delete_trip(Request $request)
@@ -163,6 +169,7 @@ class TripsController extends Controller
 
             Toast('Data has been deleted', 'success');
             return redirect()->back();
+
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
@@ -211,6 +218,7 @@ class TripsController extends Controller
 
             Toast('Data has been updated', 'success');
             return redirect('/trips');
+            
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
