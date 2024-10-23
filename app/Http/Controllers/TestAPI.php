@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Trip;
+use App\Models\Truck;
+use App\Models\Driver;
 
 
 class TestAPI extends Controller
@@ -59,27 +61,26 @@ class TestAPI extends Controller
         ]);
     }
 
-
-
     public function showTripIndexPaginate(Request $request)
     {
         $page_size = $request->input('page_size', 10);
-        $page = $request->input('page', 1);
 
-        $show_trip = Trip::with(['truck', 'driver']) 
+        // Fetch trips with related truck and driver
+        $show_trip = Trip::with(['truck', 'driver'])
             ->orderBy('trip_id', 'ASC')
             ->paginate($page_size);
 
+        // Map the trips to a more readable format
         $trips = $show_trip->map(function ($trip) {
             return [
                 'trip_id' => $trip->trip_id,
-                'truck' => [
+                'truck' => $trip->truck ? [
                     'license_plate' => $trip->truck->license_plate,
                     'model' => $trip->truck->model,
-                ],
-                'driver' => [
+                ] : null,
+                'driver' => $trip->driver ? [
                     'name' => $trip->driver->name,
-                ],
+                ] : null,
                 'start_location' => $trip->start_location,
                 'end_location' => $trip->end_location,
                 'distance' => $trip->distance,
@@ -87,12 +88,12 @@ class TestAPI extends Controller
             ];
         });
 
+        // Return the paginated response
         return response()->json([
             'total' => $show_trip->total(),
             'page_size' => $page_size,
             'last_page' => $show_trip->lastPage(),
             'current_page' => $show_trip->currentPage(),
-            'page' => $page,
             'trips' => $trips,
         ]);
     }

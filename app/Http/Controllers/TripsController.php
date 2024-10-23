@@ -48,12 +48,12 @@ class TripsController extends Controller
 
         $showtruck = DB::table('trucks')->get();
 
-        $showtruck = DB::table('trucks')
-            ->where('status', 'Available')
-            ->whereNotIn('truck_id', DB::table('trip')
-                ->where('trip_date', now()->toDateString())
-                ->select('truck_id'))
-            ->get();
+        // $showtruck = DB::table('trucks')
+        //     ->where('status', 'Available')
+        //     ->whereNotIn('truck_id', DB::table('trip')
+        //         ->where('trip_date', now()->toDateString())
+        //         ->select('truck_id'))
+        //     ->get();
 
         $show_trip = DB::table('trip')
             ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')

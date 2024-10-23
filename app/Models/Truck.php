@@ -11,6 +11,7 @@ class Truck extends Model
     use HasFactory;
 
     public $table = "trucks";
+    protected $primaryKey = 'truck_id';
     
     protected $fillable = [
       'truck_id',

@@ -31,8 +31,8 @@ class TripTest extends TestCase
         ]);
 
         $trip = Trip::create([
-            'truck_id' => $truck->id,
-            'driver_id' => $driver->id,
+            'truck_id' => $truck->truck_id,
+            'driver_id' => $driver->driver_id,
             'start_location' => 'Location A',
             'end_location' => 'Location B',
             'distance' => 100,
@@ -40,9 +40,9 @@ class TripTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('trip', [
-            'trip_id' => $trip->id,
-            'truck_id' => $truck->id,
-            'driver_id' => $driver->id,
+            'trip_id' => $trip->trip_id,
+            'truck_id' => $truck->truck_id,
+            'driver_id' => $driver->driver_id,
             'start_location' => 'Location A',
             'end_location' => 'Location B',
             'distance' => 100,
@@ -63,7 +63,7 @@ class TripTest extends TestCase
 
         Trip::create([
             'truck_id' => 999, // ID truck yang tidak ada
-            'driver_id' => $driver->id,
+            'driver_id' => $driver->driver_id,
             'start_location' => 'Location A',
             'end_location' => 'Location B',
             'distance' => 100,
@@ -85,7 +85,7 @@ class TripTest extends TestCase
         $this->expectException(\Illuminate\Database\QueryException::class);
 
         Trip::create([
-            'truck_id' => $truck->id,
+            'truck_id' => $truck->truck_id,
             'driver_id' => 999, // ID driver yang tidak ada
             'start_location' => 'Location A',
             'end_location' => 'Location B',

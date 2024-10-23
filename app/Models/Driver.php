@@ -11,8 +11,8 @@ class Driver extends Model
     use HasFactory;
 
     public $table = "drivers";
+    protected $primaryKey = 'driver_id';
     
-
     protected $fillable = [
       'driver_id',
       'name',
