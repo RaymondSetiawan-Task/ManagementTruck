@@ -156,10 +156,6 @@ class TripsController extends Controller
             $distance = $request->distance;
             $trip_date = $request->trip_date;
 
-
-            // $showdriver = DB::table('drivers')->get();
-            // $showtruck = DB::table('trucks')->get();
-
             $insert_Trip = DB::table('trip')->insert([
                 'truck_id' => $truck_id,
                 'driver_id' => $driver_id,
@@ -171,6 +167,7 @@ class TripsController extends Controller
             ]);
             toast('Trip Information Added Successfully', 'success');
             return redirect()->back();
+            
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
@@ -247,8 +244,6 @@ class TripsController extends Controller
             return redirect()->back();
         }
     }
-
-
 
     public function countTrip()
     {

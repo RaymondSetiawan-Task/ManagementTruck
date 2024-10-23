@@ -79,7 +79,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Driver</label>
-                        <select name="selectDriver" class="form-select searchDriver" id="selectDriver">
+                        <select name="selectDriver" class="form-select searchDriver" id="selectDriver" required>
                             <option value="">Select Driver Name</option>
                             @foreach ($showdriver as $i => $item)
                             <option value="{{ $item->name }}">{{ $item->name }}</option>
