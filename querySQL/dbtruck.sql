@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2024 at 10:41 AM
+-- Generation Time: Oct 23, 2024 at 03:33 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -66,11 +66,11 @@ CREATE TABLE `drivers` (
 --
 
 INSERT INTO `drivers` (`driver_id`, `name`, `license_number`, `exp_sim`, `experience_years`, `created_at`, `updated_at`) VALUES
-(1, 'John Doe', 'B1234XYZ', '2024-12-25', 5, '2024-10-23 10:40:06', NULL),
-(2, 'Thomas', 'K6789ABC', '2025-01-14', 3, '2024-10-23 10:40:06', NULL),
-(3, 'Alpha', 'K6789BDS', '2024-10-31', 4, '2024-10-23 10:40:06', NULL),
-(4, 'Jane Smith', 'L1234XYZ', '2024-11-20', 6, '2024-10-23 10:40:06', NULL),
-(5, 'Bob Brown', 'M5678ABC', '2024-10-15', 2, '2024-10-23 10:40:06', NULL);
+(1, 'John Doe', 'B1234XYZ', '2024-12-25', 5, '2024-10-23 15:32:12', NULL),
+(2, 'Thomas', 'K6789ABC', '2025-01-14', 3, '2024-10-23 15:32:12', NULL),
+(3, 'Alpha', 'K6789BDS', '2024-10-31', 4, '2024-10-23 15:32:12', NULL),
+(4, 'Jane Smith', 'L1234XYZ', '2024-11-20', 6, '2024-10-23 15:32:12', NULL),
+(5, 'Bob Brown', 'M5678ABC', '2024-10-15', 2, '2024-10-23 15:32:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -174,6 +174,13 @@ CREATE TABLE `sessions` (
   `last_activity` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('oW8Hx1NGHuepZndN5eB0neDPewM4mK6Yb4P57eyZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWGpodThoZ0JoalBvTE5uYnZDVmFqdWQ4WXJlOW1ab0tya1BvaG11ciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC90cmlwcz9wYWdlPTMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1729697546);
+
 -- --------------------------------------------------------
 
 --
@@ -197,30 +204,30 @@ CREATE TABLE `trip` (
 --
 
 INSERT INTO `trip` (`trip_id`, `truck_id`, `driver_id`, `start_location`, `end_location`, `distance`, `trip_date`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Location A', 'Location B', '120.00', '2024-01-01', '2024-10-23 10:40:06', NULL),
-(2, 3, 3, 'Location C', 'Location D', '100.00', '2024-10-27', '2024-10-23 10:40:06', NULL),
-(3, 2, 2, 'Location E', 'Location F', '200.00', '2024-10-24', '2024-10-23 10:40:06', NULL),
-(4, 3, 1, 'Location M', 'Location N', '210.00', '2024-05-15', '2024-10-23 10:40:06', NULL),
-(5, 4, 3, 'Location EE', 'Location FF', '140.00', '2024-10-20', '2024-10-23 10:40:06', NULL),
-(6, 2, 3, 'Location GG', 'Location HH', '130.00', '2024-10-22', '2024-10-23 10:40:06', NULL),
-(7, 3, 3, 'Location II', 'Location JJ', '150.00', '2024-10-23', '2024-10-23 10:40:06', NULL),
-(8, 5, 2, 'Location O', 'Location P', '220.00', '2024-10-30', '2024-10-23 10:40:06', NULL),
-(9, 3, 2, 'Location Q', 'Location R', '160.00', '2024-10-15', '2024-10-23 10:40:06', NULL),
-(10, 1, 2, 'Location S', 'Location T', '130.00', '2024-10-20', '2024-10-23 10:40:06', NULL),
-(11, 1, 3, 'Location 1', 'Location 2', '110.00', '2024-10-05', '2024-10-23 10:40:06', NULL),
-(12, 2, 3, 'Location 3', 'Location 4', '125.00', '2024-10-10', '2024-10-23 10:40:06', NULL),
-(13, 4, 1, 'Location G', 'Location H', '150.00', '2024-02-15', '2024-10-23 10:40:06', NULL),
-(14, 5, 1, 'Location I', 'Location J', '180.00', '2024-03-10', '2024-10-23 10:40:06', NULL),
-(15, 2, 1, 'Location K', 'Location L', '90.00', '2024-04-22', '2024-10-23 10:40:06', NULL),
-(16, 4, 5, 'Location KK', 'Location LL', '160.00', '2024-10-24', '2024-10-23 10:40:06', NULL),
-(17, 3, 3, 'Location 5', 'Location 6', '140.00', '2024-10-12', '2024-10-23 10:40:06', NULL),
-(18, 4, 3, 'Location 7', 'Location 8', '155.00', '2024-10-18', '2024-10-23 10:40:06', NULL),
-(19, 3, 4, 'Location Y', 'Location Z', '250.00', '2024-09-20', '2024-10-23 10:40:06', NULL),
-(20, 2, 4, 'Location AA', 'Location BB', '140.00', '2024-10-01', '2024-10-23 10:40:06', NULL),
-(21, 5, 4, 'Location CC', 'Location DD', '90.00', '2024-10-15', '2024-10-23 10:40:06', NULL),
-(22, 1, 2, 'Location U', 'Location V', '170.00', '2024-09-05', '2024-10-23 10:40:06', NULL),
-(23, 5, 2, 'Location W', 'Location X', '180.00', '2024-10-28', '2024-10-23 10:40:06', NULL),
-(24, 5, 3, 'Location 9', 'Location 10', '160.00', '2024-10-21', '2024-10-23 10:40:06', NULL);
+(1, 1, 1, 'Location A', 'Location B', '120.00', '2024-01-01', '2024-10-23 15:32:12', NULL),
+(2, 3, 3, 'Location C', 'Location D', '100.00', '2024-10-27', '2024-10-23 15:32:12', NULL),
+(3, 2, 2, 'Location E', 'Location F', '200.00', '2024-10-23', '2024-10-23 15:32:12', NULL),
+(4, 3, 1, 'Location M', 'Location N', '210.00', '2024-05-15', '2024-10-23 15:32:12', NULL),
+(5, 4, 3, 'Location EE', 'Location FF', '140.00', '2024-10-20', '2024-10-23 15:32:12', NULL),
+(6, 2, 3, 'Location GG', 'Location HH', '130.00', '2024-10-22', '2024-10-23 15:32:12', NULL),
+(7, 3, 3, 'Location II', 'Location JJ', '150.00', '2024-10-23', '2024-10-23 15:32:12', NULL),
+(8, 5, 2, 'Location O', 'Location P', '220.00', '2024-10-30', '2024-10-23 15:32:12', NULL),
+(9, 3, 2, 'Location Q', 'Location R', '160.00', '2024-10-15', '2024-10-23 15:32:12', NULL),
+(10, 1, 2, 'Location S', 'Location T', '130.00', '2024-10-20', '2024-10-23 15:32:12', NULL),
+(11, 1, 3, 'Location 1', 'Location 2', '110.00', '2024-10-05', '2024-10-23 15:32:12', NULL),
+(12, 2, 3, 'Location 3', 'Location 4', '125.00', '2024-10-10', '2024-10-23 15:32:12', NULL),
+(13, 4, 1, 'Location G', 'Location H', '150.00', '2024-10-25', '2024-10-23 15:32:12', NULL),
+(14, 5, 1, 'Location I', 'Location J', '180.00', '2024-10-26', '2024-10-23 15:32:12', NULL),
+(15, 2, 1, 'Location K', 'Location L', '90.00', '2024-04-22', '2024-10-23 15:32:12', NULL),
+(16, 4, 5, 'Location KK', 'Location LL', '160.00', '2024-10-24', '2024-10-23 15:32:12', NULL),
+(17, 3, 3, 'Location 5', 'Location 6', '140.00', '2024-10-12', '2024-10-23 15:32:12', NULL),
+(18, 4, 3, 'Location 7', 'Location 8', '155.00', '2024-10-18', '2024-10-23 15:32:12', NULL),
+(19, 3, 4, 'Location Y', 'Location Z', '250.00', '2024-09-20', '2024-10-23 15:32:12', NULL),
+(20, 2, 4, 'Location AA', 'Location BB', '140.00', '2024-10-01', '2024-10-23 15:32:12', NULL),
+(21, 5, 4, 'Location CC', 'Location DD', '90.00', '2024-10-15', '2024-10-23 15:32:12', NULL),
+(22, 1, 2, 'Location U', 'Location V', '170.00', '2024-09-05', '2024-10-23 15:32:12', NULL),
+(23, 5, 2, 'Location W', 'Location X', '180.00', '2024-10-28', '2024-10-23 15:32:12', NULL),
+(24, 5, 3, 'Location 9', 'Location 10', '160.00', '2024-10-21', '2024-10-23 15:32:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -244,11 +251,11 @@ CREATE TABLE `trucks` (
 --
 
 INSERT INTO `trucks` (`truck_id`, `license_plate`, `model`, `capacity`, `exp_kir`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'B 6670 CD', 'Isuzu', '60.00', '2024-11-24', 'Available', '2024-10-23 10:40:06', NULL),
-(2, 'B 6870 AD', 'Honda', '60.00', '2024-10-27', 'Available', '2024-10-23 10:40:06', NULL),
-(3, 'B 6980 BD', 'Suzuki', '60.00', '2025-01-29', 'On Trip', '2024-10-23 10:40:06', NULL),
-(4, 'B 7070 ED', 'Mitsubishi', '75.00', '2024-10-27', 'Available', '2024-10-23 10:40:06', NULL),
-(5, 'B 7170 FD', 'Toyota', '80.00', '2024-10-10', 'On Trip', '2024-10-23 10:40:06', NULL);
+(1, 'B 6670 CD', 'Isuzu', '60.00', '2024-11-24', 'Available', '2024-10-23 15:32:12', NULL),
+(2, 'B 6870 AD', 'Honda', '60.00', '2024-10-27', 'Available', '2024-10-23 15:32:12', NULL),
+(3, 'B 6980 BD', 'Suzuki', '60.00', '2025-01-29', 'On Trip', '2024-10-23 15:32:12', NULL),
+(4, 'B 7070 ED', 'Mitsubishi', '75.00', '2024-10-27', 'Available', '2024-10-23 15:32:12', NULL),
+(5, 'B 7170 FD', 'Toyota', '80.00', '2024-10-10', 'On Trip', '2024-10-23 15:32:12', NULL);
 
 -- --------------------------------------------------------
 
