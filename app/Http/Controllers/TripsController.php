@@ -14,20 +14,7 @@ class TripsController extends Controller
 {
     public function showTripIndex()
     {
-        $show_trip = DB::table('trip')
-            ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
-            ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
-            ->select(
-                'trip.trip_id',
-                'trip.trip_date',
-                'trip.distance',
-                'trip.start_location',
-                'trip.end_location',
-                'trucks.license_plate',
-                'trucks.model',
-                'drivers.name',
-                'trucks.truck_id',
-            )
+        $show_trip = Trip::with(['truck', 'driver'])
             ->orderBy('trip_id', 'ASC')
             ->get()
             ->map(function ($trip) {
@@ -52,7 +39,21 @@ class TripsController extends Controller
     public function showTrip()
     {
         $showdriver = DB::table('drivers')->get();
+        // $showdriver = DB::table('drivers')
+        //     ->where('statusDriver', 'Available')
+        //     ->whereNotIn('driver_id', DB::table('trip')
+        //         ->where('trip_date', now()->toDateString())
+        //         ->select('driver_id'))
+        //     ->get();
+
         $showtruck = DB::table('trucks')->get();
+
+        $showtruck = DB::table('trucks')
+            ->where('status', 'Available')
+            ->whereNotIn('truck_id', DB::table('trip')
+                ->where('trip_date', now()->toDateString())
+                ->select('truck_id'))
+            ->get();
 
         $show_trip = DB::table('trip')
             ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
@@ -72,6 +73,7 @@ class TripsController extends Controller
             $dtDriver[$i]['distance'] = $u->distance;
             $dtDriver[$i]['trip_date'] = $u->trip_date;
             $dtDriver[$i]['status'] = $u->status;
+            // $dtDriver[$i]['statusDriver'] = $u->statusDriver;
         }
         //dd($show_trip);
 
@@ -84,7 +86,22 @@ class TripsController extends Controller
         if ($name != null) {
 
             $showdriver = DB::table('drivers')->get();
+
+            // $showdriver = DB::table('drivers')
+            //     ->where('statusDriver', 'Available')
+            //     ->whereNotIn('driver_id', DB::table('trip')
+            //         ->where('trip_date', now()->toDateString())
+            //         ->select('driver_id'))
+            //     ->get();
+
             $showtruck = DB::table('trucks')->get();
+
+            // $showtruck = DB::table('trucks')
+            //     ->where('status', 'Available')
+            //     ->whereNotIn('truck_id', DB::table('trip')
+            //         ->where('trip_date', now()->toDateString())
+            //         ->select('truck_id'))
+            //     ->get();
 
             $show_trip = DB::table('trip')
                 ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
@@ -105,6 +122,7 @@ class TripsController extends Controller
                 $dtDriver[$i]['distance'] = $u->distance;
                 $dtDriver[$i]['trip_date'] = $u->trip_date;
                 $dtDriver[$i]['status'] = $u->status;
+                // $dtDriver[$i]['statusDriver'] = $u->statusDriver;
             }
 
             //dd($show_trip);
@@ -151,7 +169,6 @@ class TripsController extends Controller
             ]);
             toast('Trip Information Added Successfully', 'success');
             return redirect()->back();
-
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
@@ -169,7 +186,6 @@ class TripsController extends Controller
 
             Toast('Data has been deleted', 'success');
             return redirect()->back();
-
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
@@ -218,7 +234,6 @@ class TripsController extends Controller
 
             Toast('Data has been updated', 'success');
             return redirect('/trips');
-            
         } catch (\Illuminate\Database\QueryException $ex) {
             //dd($ex->getMessage()); 
             $errorCode = $ex->errorInfo[1];
@@ -244,4 +259,5 @@ class TripsController extends Controller
 
         return view('counttrip', compact('drivers'));
     }
+    
 }

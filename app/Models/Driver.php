@@ -11,6 +11,7 @@ class Driver extends Model
     use HasFactory;
 
     public $table = "drivers";
+    
 
     protected $fillable = [
       'driver_id',

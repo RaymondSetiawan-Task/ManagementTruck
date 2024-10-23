@@ -16,3 +16,10 @@ Route::put('/trips/update/', $root . '\TripsController@updatetrip');
 
 route::get('/counttrip', $root. '\TripsController@countTrip');
 
+//Test API
+Route::get('/triplimit', $root . '\TestAPI@showTripIndexLimit');
+Route::get('/tripPaginate', $root . '\TestAPI@showTripIndexPaginate');
+
+
+
+
