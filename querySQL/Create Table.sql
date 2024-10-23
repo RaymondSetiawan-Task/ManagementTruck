@@ -78,7 +78,7 @@ INSERT INTO drivers (name, license_number, exp_sim, experience_years, created_at
 INSERT INTO trip (truck_id, driver_id, start_location, end_location, distance, trip_date, created_at) VALUES
     (1, 1, 'Location A', 'Location B', 120, '2024-01-01', NOW()),
     (3, 3, 'Location C', 'Location D', 100, '2024-10-27', NOW()),
-    (2, 2, 'Location E', 'Location F', 200, '2024-10-24', NOW()),
+    (2, 2, 'Location E', 'Location F', 200, '2024-10-23', NOW()),
     (3, 1, 'Location M', 'Location N', 210, '2024-05-15', NOW()),
     (4, 3, 'Location EE', 'Location FF', 140, '2024-10-20', NOW()),
     (2, 3, 'Location GG', 'Location HH', 130, '2024-10-22', NOW()),
@@ -88,8 +88,8 @@ INSERT INTO trip (truck_id, driver_id, start_location, end_location, distance, t
     (1, 2, 'Location S', 'Location T', 130, '2024-10-20', NOW()),
     (1, 3, 'Location 1', 'Location 2', 110, '2024-10-05', NOW()),
     (2, 3, 'Location 3', 'Location 4', 125, '2024-10-10', NOW()),
-    (4, 1, 'Location G', 'Location H', 150, '2024-02-15', NOW()),
-    (5, 1, 'Location I', 'Location J', 180, '2024-03-10', NOW()),
+    (4, 1, 'Location G', 'Location H', 150, '2024-10-25', NOW()),
+    (5, 1, 'Location I', 'Location J', 180, '2024-10-26', NOW()),
     (2, 1, 'Location K', 'Location L', 90, '2024-04-22', NOW()),
     (4, 5, 'Location KK', 'Location LL', 160, '2024-10-24', NOW()),
     (3, 3, 'Location 5', 'Location 6', 140, '2024-10-12', NOW()),
@@ -104,4 +104,4 @@ INSERT INTO trip (truck_id, driver_id, start_location, end_location, distance, t
 
 
 -- Pencobaan Trigger
-UPDATE trucks SET status = 'On Trip' WHERE truck_id = 2;
+UPDATE trucks SET status = 'On Trip' WHERE truck_id = 3;

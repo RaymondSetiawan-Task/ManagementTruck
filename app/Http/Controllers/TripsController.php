@@ -14,7 +14,9 @@ class TripsController extends Controller
 {
     public function showTripIndex()
     {
-        $show_trip = Trip::with(['truck', 'driver'])
+        $show_trip = DB::table('trip')
+            ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
+            ->join('drivers', 'trip.driver_id', '=', 'drivers.driver_id')
             ->orderBy('trip_id', 'ASC')
             ->get()
             ->map(function ($trip) {
@@ -48,12 +50,12 @@ class TripsController extends Controller
 
         $showtruck = DB::table('trucks')->get();
 
-        // $showtruck = DB::table('trucks')
-        //     ->where('status', 'Available')
-        //     ->whereNotIn('truck_id', DB::table('trip')
-        //         ->where('trip_date', now()->toDateString())
-        //         ->select('truck_id'))
-        //     ->get();
+        $showtruck = DB::table('trucks')
+            ->where('status', 'Available')
+            ->whereNotIn('truck_id', DB::table('trip')
+                ->where('trip_date', now()->toDateString())
+                ->select('truck_id'))
+            ->get();
 
         $show_trip = DB::table('trip')
             ->join('trucks', 'trip.truck_id', '=', 'trucks.truck_id')
@@ -259,5 +261,4 @@ class TripsController extends Controller
 
         return view('counttrip', compact('drivers'));
     }
-    
 }
